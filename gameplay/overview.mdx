@@ -1,0 +1,83 @@
+---
+title: "Juego Adivinanza gameplay: game loop and feedback messages"
+description: "Understand the game loop, menu options, round structure, and feedback messages that make up a complete session of Juego Adivinanza."
+---
+
+Juego Adivinanza is a Java command-line number guessing game contained in a single file, `Juego.java`. This page explains how the game is structured — from the outer loop that keeps the menu alive to the feedback you receive after every guess.
+
+## The game loop
+
+The entire game runs inside a `do-while` loop. Each iteration of the loop is one round:
+
+1. The main menu is printed to the console.
+2. The player enters a mode number (1–4).
+3. If the player picks a difficulty mode (1, 2, or 3), the game generates a random number for that mode, asks for a guess, and prints the result.
+4. The menu immediately reappears for the next round.
+5. The loop exits only when the player enters **4** (Salir).
+
+Because the loop is `do-while`, the menu always appears at least once before the exit condition is checked.
+
+## Menu options
+
+Each time the loop runs, the game prints the following menu exactly as shown:
+
+```text
+ADIVINA EL NUMERO
+Escoje un Modo
+1 ------- Modo Facil (0-3)
+2 ------- Modo Normal (0-10)
+3 ------- Modo Dificil (0-20)
+4 ------- Salir
+```
+
+| Option | Label         | Number range |
+| ------ | ------------- | ------------ |
+| `1`    | Modo Facil    | 0 – 3        |
+| `2`    | Modo Normal   | 0 – 10       |
+| `3`    | Modo Dificil  | 0 – 20       |
+| `4`    | Salir (exit)  | —            |
+
+## Round structure
+
+A single round follows these steps:
+
+<Steps>
+  <Step title="Menu appears">
+    The game prints the four-option menu and waits for your input.
+  </Step>
+  <Step title="Pick a mode">
+    Enter `1`, `2`, or `3` to choose a difficulty. Enter `4` to exit.
+  </Step>
+  <Step title="Number is generated">
+    The game silently picks a random integer within the range for your chosen mode.
+  </Step>
+  <Step title="Enter your guess">
+    The prompt `Cual numero crees que es?` appears. Type an integer and press Enter.
+  </Step>
+  <Step title="Feedback is shown">
+    The game prints whether your guess was correct or incorrect, and always reveals the target number.
+  </Step>
+  <Step title="Back to the menu">
+    The loop restarts and the menu appears again immediately.
+  </Step>
+</Steps>
+
+## Feedback messages
+
+After you submit a guess the game prints one of two messages, where `X` is the target number that was generated:
+
+**Correct guess:**
+
+```text
+Correcto, el numero es: X
+```
+
+**Incorrect guess:**
+
+```text
+Fallaste, el numero es: X
+```
+
+<Note>
+  The target number is always revealed, whether you guessed correctly or not. You cannot play multiple rounds without seeing the answer from the previous round.
+</Note>

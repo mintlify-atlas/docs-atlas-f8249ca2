@@ -1,0 +1,246 @@
+---
+title: "Juego.java annotated walkthrough: all sections explained"
+description: "An annotated walkthrough of the complete Juego.java source file, covering every logical section from imports through the main game loop and switch cases."
+---
+
+This page walks through the single source file `Juego.java` section by section. Every code excerpt below is taken directly from the file. By the end you will understand how the game initialises variables, presents a menu, handles user input, and loops until the player chooses to exit.
+
+<AccordionGroup>
+  <Accordion title="Imports">
+    `Juego.java` has exactly two imports — nothing from any third-party library is required.
+
+    ```java
+    import java.util.Scanner;
+    import java.util.Random;
+    ```
+
+    | Import | Purpose |
+    |--------|---------|
+    | `java.util.Scanner` | Reads user input from the standard input stream (`System.in`). |
+    | `java.util.Random` | Generates pseudorandom integers for each difficulty level. |
+  </Accordion>
+
+  <Accordion title="Program entry point">
+    Java programs start execution at `public static void main`. The full declaration is:
+
+    ```java
+    public static void main (String [] args) {
+    ```
+
+    - `public` — callable from outside the class (required by the JVM launcher).
+    - `static` — no instance of `Juego` is needed to run the program.
+    - `String [] args` — command-line arguments; the game does not use them.
+  </Accordion>
+
+  <Accordion title="Variable initialization">
+    Four variables are declared at the top of `main`, before the game loop begins:
+
+    ```java
+    Random random = new Random();
+    Scanner entrada = new Scanner(System.in);
+    int opcion;
+    int NumEscogido;
+    ```
+
+    | Variable | Type | Role |
+    |----------|------|------|
+    | `random` | `Random` | Generates the secret number for each round. |
+    | `entrada` | `Scanner` | Reads integers typed by the player. |
+    | `opcion` | `int` | Stores the player's menu choice (1–4). |
+    | `NumEscogido` | `int` | Stores the player's guess for the current round. |
+
+    Both `opcion` and `NumEscogido` are declared without an initial value; they are assigned inside the loop before they are read.
+  </Accordion>
+
+  <Accordion title="Main game loop (do-while)">
+    The entire game runs inside a single `do-while` loop:
+
+    ```java
+    do {
+        // print menu
+        // read opcion
+        // switch on opcion
+    } while (opcion != 4);
+    ```
+
+    A `do-while` guarantees the body executes **at least once**, so the menu is always shown on the first run without a separate pre-check. The loop continues as long as the player has not entered `4` (Exit). When `opcion == 4` the condition `opcion != 4` becomes false and the program exits normally.
+  </Accordion>
+
+  <Accordion title="Menu display">
+    Inside the loop, five consecutive `System.out.println` calls render the menu:
+
+    ```java
+    System.out.println("ADIVINA EL NUMERO");
+    System.out.println("Escoje un Modo");
+    System.out.println("1 ------- Modo Facil (0-3)");
+    System.out.println("2 ------- Modo Normal (0-10)");
+    System.out.println("3 ------- Modo Dificil (0-20)");
+    System.out.println("4 ------- Salir");
+    opcion=entrada.nextInt();
+    ```
+
+    The call `entrada.nextInt()` blocks until the player types an integer and presses Enter. That integer is stored in `opcion` and passed to the `switch` statement immediately below.
+  </Accordion>
+
+  <Accordion title="Switch statement — difficulty cases">
+    The `switch` on `opcion` has four explicit cases and a default:
+
+    **Case 1 — Modo Facil (Easy)**
+
+    Generates a number in the range 0–3 (four possible values).
+
+    ```java
+    case 1:
+        int Facil = random.nextInt(4);
+        System.out.println("Cual numero crees que es?");
+        NumEscogido = entrada.nextInt();
+
+        if(NumEscogido == Facil) {
+            System.out.println("Correcto, el numero es: " + Facil);
+        } else {
+            System.out.println("Fallaste, el numero es: " + Facil);
+        }
+        break;
+    ```
+
+    ---
+
+    **Case 2 — Modo Normal**
+
+    Generates a number in the range 0–10 (eleven possible values).
+
+    ```java
+    case 2:
+        int Normal = random.nextInt(11);
+        System.out.println("Cual numero crees que es?");
+        NumEscogido = entrada.nextInt();
+
+        if(NumEscogido == Normal) {
+            System.out.println("Correcto, el numero es: " + Normal);
+        } else {
+            System.out.println("Fallaste, el numero es: " + Normal);
+        }
+        break;
+    ```
+
+    ---
+
+    **Case 3 — Modo Dificil (Hard)**
+
+    Generates a number in the range 0–20 (twenty-one possible values).
+
+    ```java
+    case 3:
+        int Dificil = random.nextInt(21);
+        System.out.println("Cual numero crees que es?");
+        NumEscogido = entrada.nextInt();
+
+        if(NumEscogido == Dificil) {
+            System.out.println("Correcto, el numero es: " + Dificil);
+        } else {
+            System.out.println("Fallaste, el numero es: " + Dificil);
+        }
+        break;
+    ```
+
+    ---
+
+    **Case 4 — Salir (Exit)**
+
+    An empty `break` exits the `switch`. Because `opcion` is now `4`, the `do-while` condition fails and the program terminates.
+
+    ```java
+    case 4:
+        break;
+    ```
+
+    ---
+
+    **Default — invalid input**
+
+    Any value other than 1–4 prints a prompt and the loop repeats.
+
+    ```java
+    default:
+        System.out.println("Escoje una ocpion Valida");
+    ```
+
+    <Note>The message `"Escoje una ocpion Valida"` contains a typo ("ocpion" instead of "opcion"). This is reproduced exactly as it appears in the source file.</Note>
+  </Accordion>
+</AccordionGroup>
+
+## Complete source
+
+The full `Juego.java` file, 69 lines:
+
+```java Juego.java lines
+import java.util.Scanner;
+import java.util.Random;
+
+public class Juego {
+	public static void main (String [] args) {
+
+		Random random = new Random();
+		Scanner entrada = new Scanner(System.in);
+		int opcion;
+		int NumEscogido;
+
+        do{
+		System.out.println("ADIVINA EL NUMERO");
+		System.out.println("Escoje un Modo");
+		System.out.println("1 ------- Modo Facil (0-3)");
+		System.out.println("2 ------- Modo Normal (0-10)");
+		System.out.println("3 ------- Modo Dificil (0-20)");
+		System.out.println("4 ------- Salir");
+		opcion=entrada.nextInt();
+
+
+		
+			switch(opcion) {
+			case 1:
+				int Facil = random.nextInt(4);
+				System.out.println("Cual numero crees que es?");
+				NumEscogido = entrada.nextInt();
+
+				if(NumEscogido == Facil) {
+					System.out.println("Correcto, el numero es: " + Facil);
+				} else {
+					System.out.println("Fallaste, el numero es: " + Facil);
+				}
+				break;
+
+			case 2:
+				int Normal = random.nextInt(11);
+				System.out.println("Cual numero crees que es?");
+				NumEscogido = entrada.nextInt();
+
+				if(NumEscogido == Normal) {
+					System.out.println("Correcto, el numero es: " + Normal);
+				} else {
+					System.out.println("Fallaste, el numero es: " + Normal);
+				}
+				break;
+
+			case 3:
+				int Dificil = random.nextInt(21);
+				System.out.println("Cual numero crees que es?");
+				NumEscogido = entrada.nextInt();
+
+				if(NumEscogido == Dificil) {
+					System.out.println("Correcto, el numero es: " + Dificil);
+				} else {
+					System.out.println("Fallaste, el numero es: " + Dificil);
+				}
+				break;
+
+			case 4:
+				break;
+
+			default:
+				System.out.println("Escoje una ocpion Valida");
+
+			}
+		}while(opcion != 4);  
+	}
+}
+```

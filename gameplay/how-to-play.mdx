@@ -1,0 +1,94 @@
+---
+title: "How to play Juego Adivinanza: complete session guide"
+description: "Step-by-step guide to playing Juego Adivinanza from launch to exit, with tips for each difficulty mode and notes on invalid input handling."
+---
+
+This page walks you through a complete game session from the moment you launch the program to the moment you exit. It also covers what to do when the game asks for input and how to handle edge cases.
+
+## Playing a round
+
+<Steps>
+  <Step title="Launch the game">
+    Compile and run the program from your terminal:
+
+    ```bash
+    javac Juego.java
+    java Juego
+    ```
+  </Step>
+  <Step title="The main menu appears">
+    The game immediately prints the menu:
+
+    ```text
+    ADIVINA EL NUMERO
+    Escoje un Modo
+    1 ------- Modo Facil (0-3)
+    2 ------- Modo Normal (0-10)
+    3 ------- Modo Dificil (0-20)
+    4 ------- Salir
+    ```
+  </Step>
+  <Step title="Enter a mode number">
+    Type `1`, `2`, or `3` and press Enter to start a round. Type `4` and press Enter to exit the game.
+  </Step>
+  <Step title="Enter your guess">
+    After you select a difficulty, the game prints:
+
+    ```text
+    Cual numero crees que es?
+    ```
+
+    Type an integer within the range for your chosen mode and press Enter. The game accepts any integer, but only numbers in the valid range have a chance of being correct.
+  </Step>
+  <Step title="Read the result">
+    The game reveals whether your guess was right or wrong and always shows the target number:
+
+    **If you guessed correctly:**
+
+    ```text
+    Correcto, el numero es: X
+    ```
+
+    **If you guessed incorrectly:**
+
+    ```text
+    Fallaste, el numero es: X
+    ```
+
+    Where `X` is the number the game generated.
+  </Step>
+  <Step title="The menu appears again automatically">
+    The game loops back to the main menu immediately after showing the result. No action is needed — just read the next prompt.
+  </Step>
+  <Step title="Enter 4 to exit">
+    When the menu appears, type `4` and press Enter. The program ends without printing any additional message.
+  </Step>
+</Steps>
+
+## Tips for guessing
+
+<Tip>
+  **Easy mode (0–3):** Only four numbers are possible. If you have no other information, guessing `1` or `2` puts you in the middle of the range and avoids the boundary values.
+</Tip>
+
+<Tip>
+  **Normal mode (0–10):** Eleven numbers are possible. Picking `5` is the balanced choice — it sits at the midpoint of the range and is no harder to guess than any other value.
+</Tip>
+
+<Tip>
+  **Hard mode (0–20):** Twenty-one numbers are possible. Starting with `10` places your guess at the exact midpoint of the range. While it does not improve your odds (each number is equally likely), it can serve as a useful mental anchor across rounds.
+</Tip>
+
+## Handling invalid input
+
+If you enter a number that is not `1`, `2`, `3`, or `4` at the mode prompt, the game prints:
+
+```text
+Escoje una ocpion Valida
+```
+
+The menu then reappears and the game continues normally. No round is played and no number is generated.
+
+<Note>
+  The game reads all input using `Scanner.nextInt()`, which only accepts integer values. If you type non-numeric text (for example, letters or symbols) the program will throw a `java.util.InputMismatchException` and crash. Restart the program with `java Juego` to continue playing.
+</Note>

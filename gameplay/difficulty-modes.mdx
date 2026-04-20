@@ -1,0 +1,72 @@
+---
+title: "Juego Adivinanza difficulty modes: Easy, Normal, Hard"
+description: "Compare Easy, Normal, and Hard modes in Juego Adivinanza — menu options, number ranges, and first-guess win probabilities for each difficulty."
+---
+
+Juego Adivinanza offers three difficulty modes, each with a different number range. The wider the range, the lower your odds of guessing correctly on the first try. You select a mode every round, so you can switch freely between them during a single session.
+
+<Tabs>
+  <Tab title="Easy">
+    **Menu option:** `1`
+
+    **Number range:** 0 – 3 (inclusive)
+
+    **Random number generation:**
+
+    ```java Juego.java
+    int Facil = random.nextInt(4);
+    ```
+
+    `nextInt(4)` returns a value from 0 up to (but not including) 4, giving four possible values: 0, 1, 2, and 3.
+
+    **Probability of guessing correctly on the first try:** 1 in 4 (25%)
+
+    Easy mode suits players who are new to the game and want to learn the round structure before tackling a larger range.
+  </Tab>
+  <Tab title="Normal">
+    **Menu option:** `2`
+
+    **Number range:** 0 – 10 (inclusive)
+
+    **Random number generation:**
+
+    ```java Juego.java
+    int Normal = random.nextInt(11);
+    ```
+
+    `nextInt(11)` returns a value from 0 up to (but not including) 11, giving eleven possible values: 0 through 10.
+
+    **Probability of guessing correctly on the first try:** 1 in 11 (~9%)
+
+    Normal mode is a good middle ground once you are comfortable with the game flow and want a more realistic guessing challenge.
+  </Tab>
+  <Tab title="Hard">
+    **Menu option:** `3`
+
+    **Number range:** 0 – 20 (inclusive)
+
+    **Random number generation:**
+
+    ```java Juego.java
+    int Dificil = random.nextInt(21);
+    ```
+
+    `nextInt(21)` returns a value from 0 up to (but not including) 21, giving twenty-one possible values: 0 through 20.
+
+    **Probability of guessing correctly on the first try:** 1 in 21 (~5%)
+
+    Hard mode is for players looking for the lowest odds and the most satisfying correct guess.
+  </Tab>
+</Tabs>
+
+## Summary comparison
+
+| Mode   | Menu option | Range | Numbers available | Win probability  |
+| ------ | ----------- | ----- | ----------------- | ---------------- |
+| Easy   | `1`         | 0–3   | 4                 | 1 in 4 (25%)     |
+| Normal | `2`         | 0–10  | 11                | 1 in 11 (~9%)    |
+| Hard   | `3`         | 0–20  | 21                | 1 in 21 (~5%)    |
+
+<Tip>
+  Start with Easy (option `1`) to get familiar with the game loop — the menu, the prompt, and the feedback message — before moving on to Normal or Hard.
+</Tip>

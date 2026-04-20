@@ -1,0 +1,112 @@
+---
+title: "Juego Adivinanza FAQ: setup, gameplay, and source code"
+description: "Answers to common questions about setting up, running, and playing Juego Adivinanza, plus explanations of source code behaviour and how to extend the game."
+---
+
+This page answers the questions most commonly asked about Juego Adivinanza — covering environment setup, gameplay mechanics, Spanish terminology, and how to modify the source code for your own purposes.
+
+<AccordionGroup>
+  <Accordion title="What Java version do I need?">
+    Any **Java SE 8 or later** will work. The game uses only two classes from the core standard library — `java.util.Scanner` and `java.util.Random` — both of which have been available since Java 1.0. No build tool, framework, or third-party dependency is required.
+
+    Compile and run with:
+
+    ```bash
+    javac Juego.java
+    java Juego
+    ```
+  </Accordion>
+
+  <Accordion title="Why is the menu in Spanish?">
+    The project was created by a Spanish-speaking developer (EduCabrera-k). Here is a translation of every Spanish string that appears in the program:
+
+    | Spanish | English |
+    |---------|---------|
+    | Juego Adivinanza | Guessing Game |
+    | ADIVINA EL NUMERO | GUESS THE NUMBER |
+    | Escoje un Modo | Choose a mode |
+    | Modo Facil | Easy mode |
+    | Modo Normal | Normal mode |
+    | Modo Dificil | Hard mode |
+    | Salir | Exit |
+    | Cual numero crees que es? | What number do you think it is? |
+    | Correcto | Correct |
+    | Fallaste | You missed / You failed |
+  </Accordion>
+
+  <Accordion title="What happens if I enter a letter instead of a number?">
+    The `Scanner.nextInt()` call will throw a `java.util.InputMismatchException` and the program will crash with a stack trace. The game contains no try-catch block and no input validation — it assumes the player always enters a whole integer.
+
+    Always type a whole number when prompted. If you want to add error handling, wrap each `entrada.nextInt()` call in a try-catch and loop until a valid integer is provided.
+  </Accordion>
+
+  <Accordion title="Can I play multiple rounds without restarting?">
+    Yes. The game uses a `do-while` loop that returns to the main menu after every round, regardless of whether you guessed correctly or not. You can switch difficulty between rounds freely.
+
+    Enter `4` at the main menu to exit the program cleanly.
+  </Accordion>
+
+  <Accordion title="What is the range of numbers for each difficulty?">
+    The secret number is generated with `random.nextInt(N)`, which produces a value from `0` (inclusive) to `N-1` (inclusive).
+
+    | Option | Label | Call | Range | Values |
+    |--------|-------|------|-------|--------|
+    | 1 | Modo Facil | `random.nextInt(4)` | 0–3 | 4 |
+    | 2 | Modo Normal | `random.nextInt(11)` | 0–10 | 11 |
+    | 3 | Modo Dificil | `random.nextInt(21)` | 0–20 | 21 |
+
+    All ranges are inclusive on both ends.
+  </Accordion>
+
+  <Accordion title="What does 'Correcto' and 'Fallaste' mean?">
+    Both messages are printed with the actual secret number appended so you always know the answer:
+
+    - **"Correcto, el numero es: X"** — your guess matched the number. "Correcto" means "Correct".
+    - **"Fallaste, el numero es: X"** — your guess did not match. "Fallaste" means "You missed" or "You failed".
+
+    In either case the game returns to the main menu, so you can immediately play another round.
+  </Accordion>
+
+  <Accordion title="How do I modify the game to add more difficulty levels?">
+    Open `Juego.java` and make three edits:
+
+    <Steps>
+      <Step title="Add a menu line">
+        Add a new `System.out.println` call in the menu block. For example, for an "Expert" mode with numbers 0–99:
+
+        ```java
+        System.out.println("5 ------- Modo Experto (0-99)");
+        ```
+      </Step>
+      <Step title="Add a switch case">
+        Add a corresponding `case` to the `switch` statement. Use `random.nextInt(N)` where `N` is one more than your desired maximum:
+
+        ```java
+        case 5:
+            int Experto = random.nextInt(100);
+            System.out.println("Cual numero crees que es?");
+            NumEscogido = entrada.nextInt();
+
+            if(NumEscogido == Experto) {
+                System.out.println("Correcto, el numero es: " + Experto);
+            } else {
+                System.out.println("Fallaste, el numero es: " + Experto);
+            }
+            break;
+        ```
+      </Step>
+      <Step title="Recompile">
+        Save the file, then recompile and run:
+
+        ```bash
+        javac Juego.java
+        java Juego
+        ```
+      </Step>
+    </Steps>
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+  For a step-by-step guide on starting the game, navigating the menu, and reading the output, see [How to play](/gameplay/how-to-play).
+</Tip>

@@ -1,0 +1,39 @@
+{
+  "projectType": "general",
+  "projectName": "Juego Adivinanza",
+  "projectDescription": "A simple Java command-line number guessing game with three difficulty modes — Easy, Normal, and Hard.",
+  "theme": "almond",
+  "primaryColor": "#2E7D32",
+  "lightColor": "#A5D6A7",
+  "darkColor": "#1B5E20",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get Started",
+        "pages": ["introduction", "quickstart"]
+      },
+      {
+        "group": "Gameplay",
+        "pages": ["gameplay/overview", "gameplay/difficulty-modes", "gameplay/how-to-play"]
+      },
+      {
+        "group": "Reference",
+        "pages": ["reference/source-code", "reference/faq"]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Three difficulty modes: Easy (0-3), Normal (0-10), Hard (0-20)",
+    "Randomly generated target number each round",
+    "Immediate feedback on correct or incorrect guesses",
+    "Continuous play loop — replay or exit at any time",
+    "Single-file Java implementation with no external dependencies"
+  ],
+  "publicApiSurface": [
+    "main(String[] args) — entry point, launches the game loop",
+    "Easy mode — random number in range 0–3",
+    "Normal mode — random number in range 0–10",
+    "Hard mode — random number in range 0–20",
+    "Exit option — option 4 to quit the game"
+  ]
+}

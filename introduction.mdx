@@ -1,0 +1,42 @@
+---
+title: "What is Juego Adivinanza? Overview and prerequisites"
+description: "Learn what Juego Adivinanza is, how it works, and what you need to compile and play this single-file Java command-line number guessing game."
+---
+
+Juego Adivinanza ("Guessing Game" in Spanish) is a menu-driven command-line game written in a single Java file. This page explains what the game does, breaks down its key features, and lists what you need before you start.
+
+## What the game does
+
+When you run Juego Adivinanza, a text menu appears in your terminal. You choose a difficulty mode, type your guess, and the game immediately tells you whether you were right or wrong — and reveals the correct number either way. A `do-while` loop keeps the menu alive so you can play round after round without restarting. Enter `4` at the menu to exit.
+
+## Key features
+
+- **Three difficulty modes** — Easy (0–3), Normal (0–10), and Hard (0–20), each with a different number range.
+- **Randomly generated target** — each round uses `java.util.Random` to pick a new number, so no two rounds are the same.
+- **Immediate feedback** — after every guess you see either `Correcto, el numero es: N` or `Fallaste, el numero es: N`.
+- **Continuous play loop** — the `do-while` loop returns you to the menu after each round; replay as many times as you want.
+- **Single Java file, no external dependencies** — only a JDK is required; there is no build tool, no package manager, and no third-party library.
+
+<Note>
+  All in-game text is in Spanish. "Escoje un Modo" means "Choose a mode", "Modo Facil/Normal/Dificil" means "Easy/Normal/Hard mode", and "Salir" means "Exit".
+</Note>
+
+## What you need
+
+Before you compile and play, make sure you have:
+
+- **Java JDK 8 or later** installed. Run `java -version` and `javac -version` in a terminal to confirm.
+- **A terminal** (macOS Terminal, Linux shell, or Windows Command Prompt / PowerShell).
+
+No IDE, no build tool, and no internet connection are required once you have the source file.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Compile and run the game from scratch in four steps.
+  </Card>
+  <Card title="Gameplay overview" icon="gamepad" href="/gameplay/overview">
+    Understand rounds, feedback messages, and the play loop in detail.
+  </Card>
+</CardGroup>
